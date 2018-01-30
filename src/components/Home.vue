@@ -1,11 +1,15 @@
 <template>
   <div class="home">
+
     <h1>Home</h1>
+
     <div class="messages">
       <div id="message" v-for="message in messages">
         <h3>{{message.date}}</h3>
+        <h3>{{message.pk}}</h3>
         <h2>{{message.text}}</h2>
         <h2>{{message.isread}}</h2>
+        <button v-on:click="changeState(message)"> Read </button>
       </div>
     </div>
   </div>
@@ -19,31 +23,37 @@ export default {
   data: function(){
     return {
       messages: [],
-      counter: 0
+      interval: null,
     }
   },
   created: function(){
     this.getMessages();
-    setInterval(getMessages, 2000);
+    setInterval( function() {
+      this.getMessages();
+    }.bind(this), 10000);
   },
   methods: {
     getMessages: function() {
-    var self = this;
-    axios.get('https://slavvok.pythonanywhere.com/api/get_messages/')
-    .then(response => {
-      self.messages = response.data;
-      })
-    .catch(error => {
-    console.log(error);
-    });
+      var self = this;
+      axios.get('https://slavvok.pythonanywhere.com/api/get_messages/')
+      .then(response => {
+        self.messages = response.data;
+        })
+      .catch(error => {
+      console.log(error);
+      });
   },
-    changeState: function() {
-    var self = this;
-    axios.put('https://slavvok.pythonanywhere.com/api/get_messages/{messages.id}')
-    .then(response => {
-      self.messages.isread = true
-    })
-    }
+    changeState: function(message) {
+      var self = this;
+      axios.get(`https://slavvok.pythonanywhere.com/api/get_messages/${message.pk}/mark_read/`)
+      .then(response => {
+        self.message = response.data;
+      })
+      self.getMessages();
+    },
+  },
+    beforeDestroy: function(){
+      clearInterval(this.interval);
   },
 }
 

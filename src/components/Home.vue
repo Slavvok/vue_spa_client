@@ -1,15 +1,13 @@
 <template>
   <div class="home">
-
     <h1>Home</h1>
-
     <div class="messages">
       <div id="message" v-for="message in messages">
         <h3>{{message.date}}</h3>
         <h3>{{message.pk}}</h3>
         <h2>{{message.text}}</h2>
-        <h2>{{message.isread}}</h2>
         <button v-on:click="changeState(message)"> Read </button>
+        <h2>{{message.isread}}</h2>
       </div>
     </div>
   </div>
@@ -62,7 +60,10 @@ export default {
 <style>
 #message{
   border: 2px solid;
-  margin-top: 10px;
+  margin: auto;
+  margin-bottom:10px;
+  width: 400px;
   text-align: center;
+  background-color: #99ccff;
 }
 </style>

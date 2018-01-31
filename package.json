@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "pretty-date": "^0.2.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-timeago": "^3.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

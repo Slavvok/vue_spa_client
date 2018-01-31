@@ -1,13 +1,20 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <div class="messages">
-      <div id="message" v-for="message in messages">
-        <h3>{{message.date}}</h3>
-        <h3>{{message.pk}}</h3>
-        <h2>{{message.text}}</h2>
-        <button v-on:click="changeState(message)"> Read </button>
-        <h2>{{message.isread}}</h2>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Client</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-4" v-for="message in messages">
+          <p>{{message.date}}</p>
+          <p>{{message.text}}</p>
+          <time class="timeago" datetime="message.date"></time>
+        <p><a class="btn btn-default" role="button" v-on:click="changeState(message)"> Read </a></p>
+      </div>
       </div>
     </div>
   </div>
@@ -15,6 +22,7 @@
 
 <script>
 import axios from 'axios';
+import VueTimeago from 'vue-timeago'
 
 export default {
   name: 'Home',
@@ -31,6 +39,7 @@ export default {
     }.bind(this), 10000);
   },
   methods: {
+
     getMessages: function() {
       var self = this;
       axios.get('https://slavvok.pythonanywhere.com/api/get_messages/')
@@ -58,12 +67,26 @@ export default {
 </script>
 
 <style>
-#message{
-  border: 2px solid;
-  margin: auto;
-  margin-bottom:10px;
-  width: 400px;
-  text-align: center;
+.navbar-inverse {
+    background-color: #99ccff;
+    border-color: #080808;
+}
+
+.navbar-inverse .navbar-brand {
+  color: white;
+}
+
+.row {
+  margin-top: 10px;
+}
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn-default:hover{
   background-color: #99ccff;
 }
+
 </style>

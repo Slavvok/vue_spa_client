@@ -55,8 +55,11 @@ export default {
       axios.get(`https://slavvok.pythonanywhere.com/api/get_messages/${message.pk}/mark_read/`)
       .then(response => {
         self.message = response.data;
+        self.getMessages();
       })
-      self.getMessages();
+      .catch(error => {
+      console.log(error);
+      });
     },
   },
     beforeDestroy: function(){

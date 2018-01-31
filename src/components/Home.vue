@@ -22,7 +22,6 @@
 
 <script>
 import axios from 'axios';
-import VueTimeago from 'vue-timeago'
 
 export default {
   name: 'Home',
@@ -37,6 +36,7 @@ export default {
     setInterval( function() {
       this.getMessages();
     }.bind(this), 10000);
+    this.beforeDestroy();
   },
   methods: {
 
